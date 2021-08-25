@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    {% load static %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/example2.css'%}">
+    <link rel="stylesheet" href="{% static 'css/navigator1.css'%}">
+    <link rel="stylesheet" href="{% static 'css/slider1.css'%}">
+    <link rel="stylesheet" href="{% static 'css/footer.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style2.css'%}">
+
+
+    <title>Докимакуры ИВТ <3</title>
+
+</head>
+<body>
+
+
+<div class="container-fluid" style="margin: 15px;">
+
+    <div class="row">
+        <div class="site-name" style="margin:0 auto;">
+            <a style="font-size: 35px;" href="{% url 'base' %}">Дакимакуры ИВТ <3</a>
+        </div>
+
+    </div>
+</div>
+<div>
+    <div class="navigation col-lg-12">
+        <ul>
+            <li>
+                <a class="" href="{% url 'cart' %}"><img src=""><img src="{% static 'images/cart.png'%}">
+                    <span>{{ cart.products.count }}</span></a>
+
+            </li>
+            {%for category in categories%}
+            <li><a href="{{category.url}}">{{category.name}} ({{category.count}})</a></li>
+            {%endfor%}
+        </ul>
+    </div>
+</div>
+
+
+<div>
+
+    <div class="col-lg-12">
+        {% block content %}
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="border-5">
+
+        </div>
+        <div class="slider-color">
+            <ul id="slides">
+                <li class="slide showing">Тут</li>
+                <li class="slide">Может</li>
+                <li class="slide">Быть</li>
+                <li class="slide">Ваша</li>
+                <li class="slide">Реклама</li>
+            </ul>
+        </div>
+        <div class="border-10">
+
+        </div>
+        <div>
+            <div class="row">
+                {% for product in products %}
+                <div class="col-lg-3 col-md-5 mb-3 pacifico_font product-element">
+                    <div class="card h-100">
+                        <a href="{{ product.get_absolute_url }}"><img class="card-img-top"
+                                                                      src="{{ product.image.url }}"
+                                                                      alt=""></a>
+
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                            </h4>
+                            <h5>{{ product.price }} руб.</h5>
+
+                            <a href="{% url 'add_to_cart' ct_model=product.get_model_name slug=product.slug %}">
+                                <button class="btn btn-danger btn-block">Добавить в корзину</button>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+            {% endblock content %}
+        </div>
+    </div>
+</div>
+
+    <footer class="py-3">
+        <div class="copy-txt  py-3">
+            <p>
+                Докимакуры ИВТ. Все права защищены©
+        </div>
+</footer>
+<!-- CDN подключение иконок fontawesome -->
+<script src="https://use.fontawesome.com/df966d76e1.js"></script>
+<script src="{% static 'js/slider1.js'%}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
